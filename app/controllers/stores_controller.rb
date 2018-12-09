@@ -8,11 +8,11 @@ class StoresController < ApplicationController
   end
   
   def search_all
-    @product_id = params[:product_id]
+    @product_id = params[:query][:product_id]
     @stores = Store.all.sort_by(&:city)
     @output = {}
     Store.all.each do |s|
-      @output[s.store_id] = s.get_data_single(params[:product_id])
+      @output[s.store_id] = s.get_data_single(@product_id)
       # fill store phone number and update latitude and longitude to be more precise
       if s.phone.nil?
         s.update(lat: @output[s.store_id]["latitude"], long: @output[s.store_id]["longitude"], phone: @output[s.store_id]["phoneNumber"]["FormattedPhoneNumber"])
