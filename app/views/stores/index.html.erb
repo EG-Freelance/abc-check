@@ -1,10 +1,22 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Search Product ID</h1>
-<%= form_for :query, :url => search_all_url, :method => :post do |f| %>
-  <%= f.text_field :product_id, :placeholder => "Product ID" %>
+<%= form_for :query, :url => search_url, :method => :post do |f| %>
+  <%= f.text_field :product_id, :placeholder => "Product ID" %><br>
+  <%= f.text_field :city_1, :placeholder => "City 1" %><br>
+  <%= f.text_field :city_2, :placeholder => "City 2" %><br>
+  <%= f.text_field :city_3, :placeholder => "City 3" %><br>
+  <%= f.text_field :city_4, :placeholder => "City 4" %><br>
+  <%= f.text_field :city_5, :placeholder => "City 5" %><br>
   
   <%= f.submit "Search" %>
+<% end %>
+
+<h3>Eligible Cities:</h3>
+<i>(click to add to search)</i><br><br>
+<span id="clear-cities">CLEAR CITIES</span><br><br>
+<% @cities.each do |c| %>
+  <span class="city-link"><%= c %></span><% unless c == @cities.last %>, <% end %>
 <% end %>
 
 <h1>Stores</h1>
@@ -30,3 +42,36 @@
     <% end %>
   </tbody>
 </table>
+
+<script>
+  // add city to query
+  function addCity(){
+    $('.city-link').click(function(){
+      var text = $(this).text();
+      if($('#query_city_1').val() == ""){
+        $('#query_city_1').val(text);
+      }else if($('#query_city_2').val() == ""){
+        $('#query_city_2').val(text);
+      }else if($('#query_city_3').val() == ""){
+        $('#query_city_3').val(text);
+      }else if($('#query_city_4').val() == ""){
+        $('#query_city_4').val(text);
+      }else{
+        $('#query_city_5').val(text);
+      }
+    });
+  }
+  
+  function clearCities(){
+    $('#clear-cities').click(function(){
+      $('#query_city_1').val('');
+      $('#query_city_2').val('');
+      $('#query_city_3').val('');
+      $('#query_city_4').val('');
+      $('#query_city_5').val('');
+    });
+  }
+  
+  $(document).ready(addCity());
+  $(document).ready(clearCities());
+</script>

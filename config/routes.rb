@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root to: "stores#index"
   
   resources :stores
-  post '/search_all' => 'stores#search_all', :as => "search_all"
+  post '/search' => 'stores#search', :as => "search"
   
   
   

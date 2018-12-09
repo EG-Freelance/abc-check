@@ -25,7 +25,7 @@ class Store < ActiveRecord::Base
         pages = (total_results/100.0).ceil
       end
       
-      stores << hash["results"].map { |r| { :store_id => r["title"], :city => r["raw"]["fcity79869"], :address => r["raw"]["fpagez32xtitle79869"], :lat => r["raw"]["flatitude79869"], :long => r["raw"]["flongitude79869"] } }
+      stores << hash["results"].map { |r| { :store_id => r["title"], :city => r["raw"]["fcity79869"].strip, :address => r["raw"]["fpagez32xtitle79869"], :lat => r["raw"]["flatitude79869"], :long => r["raw"]["flongitude79869"] } }
       
       i += 1
       

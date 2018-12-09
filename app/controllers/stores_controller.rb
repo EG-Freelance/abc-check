@@ -5,11 +5,12 @@ class StoresController < ApplicationController
   # GET /stores.json
   def index
     @stores = Store.all.sort_by(&:city)
+    @cities = @stores.map(&:city).uniq
   end
   
-  def search_all
+  def search
     @product_id = params[:query][:product_id]
-    @stores = Store.all.sort_by(&:city)
+    @stores = Store.where('city = ? OR city = ? OR city = ? OR city = ? OR city = ?', params[:query][:city_1], params[:query][:city_2], params[:query][:city_3], params[:query][:city_4], params[:query][:city_5]).sort_by(&:city)
     @output = {}
     @stores.each_with_index do |s,i|
       puts "Collecting information for record ##{i+1}: Store #{s.id}...."
