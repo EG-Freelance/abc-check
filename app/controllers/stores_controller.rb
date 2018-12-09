@@ -4,12 +4,12 @@ class StoresController < ApplicationController
   # GET /stores
   # GET /stores.json
   def index
-    @stores = Store.all
+    @stores = Store.all.sort_by(&:city)
   end
   
   def search_all
     @product_id = params[:product_id]
-    @stores = Store.all
+    @stores = Store.all.sort_by(&:city)
     @output = {}
     Store.all.each do |s|
       @output[s.store_id] = s.get_data_single(params[:product_id])
