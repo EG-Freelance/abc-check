@@ -11,11 +11,13 @@ class StoresController < ApplicationController
     @product_id = params[:query][:product_id]
     @stores = Store.all.sort_by(&:city)
     @output = {}
-    Store.all.each do |s|
+    @stores.each_with_index do |s,i|
+      puts "Collecting information for record ##{i+1}: Store #{s.id}...."
       @output[s.store_id] = s.get_data_single(@product_id)
       # fill store phone number and update latitude and longitude to be more precise
       if s.phone.nil?
-        s.update(lat: @output[s.store_id]["latitude"], long: @output[s.store_id]["longitude"], phone: @output[s.store_id]["phoneNumber"]["FormattedPhoneNumber"])
+        # update the actual record, not the eager-loaded record
+        Store.find(s.id).update(lat: @output[s.store_id]["latitude"], long: @output[s.store_id]["longitude"], phone: @output[s.store_id]["phoneNumber"]["FormattedPhoneNumber"])
       end
     end
   end
