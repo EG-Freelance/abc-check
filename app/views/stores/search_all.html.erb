@@ -1,0 +1,24 @@
+<h1>Results for <%= @product_id %></h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Store ID</th>
+			<th>Address</th>
+			<th>City</th>
+			<th>Phone</th>
+			<th>Inventory</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @stores.all.each do |s| %>
+			<tr>
+				<td><%= s.store_id %></td>
+				<td><%= s.address %></td>
+				<td><%= s.city %></td>
+				<td><%= s.phone %></td>
+				<td><%= @output[s.store_id]["quantity"] %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
