@@ -1,10 +1,10 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Search Product ID</h1>
-<%= form_for(:query) do |f| %>
+<%= form_for :query, :url => search_all_url, :method => :post do |f| %>
   <%= f.text_field :product_id, :placeholder => "Product ID" %>
   
-  <%= f.submit %>
+  <%= f.submit "Search" %>
 <% end %>
 
 <h1>Stores</h1>
